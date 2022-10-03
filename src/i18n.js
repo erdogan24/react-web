@@ -4,17 +4,31 @@ import { initReactI18next } from 'react-i18next';
 i18n.use(initReactI18next).init({
     resources: {
         en: {
-            translations:{
+            translations: {
+                'Sign up': 'Sign Up',
+                'Password mismatch': 'Password mismatch',
+                Username: 'Username',
+                'Display Name': 'Display Name',
+                Password: 'Password',
+                'Password Repeat': 'Password Repeat',
+                Login: 'Login',
 
             }
         },
         tr: {
             translations: {
+                'Sign Up': 'Kayıt Ol',
+                'Password mismatch': 'Aynı şifreyi giriniz',
+                'Username': 'Kullanıcı Adı',
+                'Display Name': 'Görünen Ad',
+                'Password': 'Şifre',
+                'Password Repeat': 'Şifre Tekrarı',
+                Login: 'Sisteme gir',
 
             }
         }
     },
-    fallbackLng: 'tr',
+    fallbackLng: 'en',
     ns: ['translations'],
     defaultNS: ' translations',
     keySeperator: false,
@@ -22,7 +36,7 @@ i18n.use(initReactI18next).init({
         escapeValue: false,
         formatSeparator: ','
 
-    },react: {
+    }, react: {
         wait: true
     }
 

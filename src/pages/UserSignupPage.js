@@ -1,7 +1,8 @@
 import React from "react";
 import { signup } from '../api/apiCalls';
 import Input from '../components/Input';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
+
 
 class UserSignupPage extends React.Component {
 
@@ -14,15 +15,15 @@ class UserSignupPage extends React.Component {
         errors: {}
     };
     onChange = event => {
-
+        const { t } = this.props;
         const { name, value } = event.target;
         const errors = { ...this.state.errors }
         errors[name] = undefined
         if (name === 'password' || name === 'passwordRepeat') {
             if (name === 'password' && value !== this.state.passwordRepeat) {
-                errors.passwordRepeat = 'Password mismatch';
+                errors.passwordRepeat = t('Password mismatch');
             } else if (name === 'passwordRepeat' && value !== this.state.password) {
-                errors.passwordRepeat = 'Password mismatch';
+                errors.passwordRepeat = t('Password mismatch');
             } else {
                 errors.passwordRepeat = undefined;
             }
@@ -42,6 +43,7 @@ class UserSignupPage extends React.Component {
         };
         this.setState({ pendingApiCall: true });
         try {
+            // eslint-disable-next-line no-unused-vars
             const response = await signup(body);
         } catch (error) {
             if (error.response.data.validationErrors) {
@@ -53,21 +55,22 @@ class UserSignupPage extends React.Component {
     render() {
         const { pendingApiCall, errors } = this.state;
         const { username, nickName, password, passwordRepeat } = errors;
-
+        const { t } = this.props;
         return (
             <div className="cantainer">
                 <form>
-                    <h1 className="text-center">Sign Up</h1>
-                    <Input name="username" label="Username" error={username} onChange={this.onChange} />
-                    <Input name="nickName" label="Nick Name" error={nickName} onChange={this.onChange} />
-                    <Input name="password" label="Password" error={password} onChange={this.onChange} type="password" />
-                    <Input name="passwordRepeat" label="Password Repeat" error={passwordRepeat} onChange={this.onChange} type="password" />
+                    <h1 className="text-center">{t('Sign Up')}</h1>
+                    <Input name="username" label={t("Username")} error={username} onChange={this.onChange} />
+                    <Input name="nickName" label={t("Nick Name")} error={nickName} onChange={this.onChange} />
+                    <Input name="password" label={t("Password")} error={password} onChange={this.onChange} type="password" />
+                    <Input name="passwordRepeat" label={t("Password Repeat")} error={passwordRepeat} onChange={this.onChange} type="password" />
                     <div className="text-center"><br></br>
                         <button className="btn btn-primary" onClick={this.onClickSignup} disabled={pendingApiCall || passwordRepeat !== undefined} >
-                            {pendingApiCall && <span className="spinner-border spinner-border-sm" ></span>} Sign Up
+                            {pendingApiCall && <span className="spinner-border spinner-border-sm" ></span>} {t('Sign Up')}
                         </button>
                     </div>
-                </form>
+
+                </form >
             </div>
         );
     }
